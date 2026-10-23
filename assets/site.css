@@ -40,6 +40,12 @@ html:lang(ko) {
     "Hiragino Sans", "Apple SD Gothic Neo", "Noto Sans CJK JP", sans-serif;
 }
 
+/* El coreano se parte por los espacios entre palabras, no entre dos sílabas de la misma palabra */
+html:lang(ko) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
 *,
 *::before,
 *::after {
@@ -134,6 +140,15 @@ h3 {
   letter-spacing: -0.02em;
   margin: 0;
   text-wrap: balance;
+  /* Una palabra que no cabe entera en la línea se parte antes que salirse de la pantalla */
+  overflow-wrap: break-word;
+}
+
+/* Las palabras larguísimas del alemán y del neerlandés (Nutzungsbedingungen, Gebruiksvoorwaarden), con guion */
+html:lang(de) :is(h1, h2, h3),
+html:lang(nl) :is(h1, h2, h3) {
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 p {
@@ -188,6 +203,8 @@ strong {
 }
 
 .marca {
+  /* El nombre, siempre en la letra de la app, también en las páginas en japonés, coreano o vietnamita */
+  font-family: "Outfit", var(--texto);
   font-weight: 800;
   font-size: 1.5rem;
   letter-spacing: -0.02em;
@@ -206,6 +223,16 @@ strong {
   color: var(--tinta);
 }
 
+/* El botón: el nombre del idioma y una flecha. Si en un móvil muy estrecho un nombre largo no cabe
+   («Português (Portugal)»), se corta con «…»; el nombre de la marca no se encoge nunca. */
+.cabecera-in .marca {
+  flex: none;
+}
+
+.idioma {
+  min-width: 0;
+}
+
 .idioma summary {
   cursor: pointer;
   list-style: none;
@@ -213,12 +240,43 @@ strong {
   background: var(--caja);
   border: 1px solid var(--filo);
   border-radius: 10px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .idioma summary::-webkit-details-marker {
   display: none;
 }
 
+/* Lo que deja libre la cabecera: el ancho de la pantalla menos los márgenes (32), la marca (141), el hueco (16), el
+   relleno y el borde del botón (26) y la flecha (15). A partir de 375 px caben todos los nombres enteros. */
+.idioma-nombre {
+  display: inline-block;
+  max-width: calc(100vw - 236px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+
+.idioma summary::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 9px;
+  border-right: 1.8px solid var(--tinta-media);
+  border-bottom: 1.8px solid var(--tinta-media);
+  vertical-align: 0.24em;
+  transform: rotate(45deg);
+}
+
+.idioma[open] summary::after {
+  vertical-align: 0.02em;
+  transform: rotate(-135deg);
+}
+
+/* La lista: catorce idiomas; si la pantalla es baja, se desplaza dentro */
 .idioma ul {
   position: absolute;
   right: 0;
@@ -226,6 +284,10 @@ strong {
   margin: 6px 0 0;
   padding: 6px;
   min-width: 12rem;
+  max-height: calc(100vh - 88px);
+  max-height: calc(100dvh - 88px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   list-style: none;
   background: var(--menu);
   border: 1px solid var(--filo);
@@ -238,6 +300,7 @@ strong {
   padding: 6px 10px;
   color: var(--tinta);
   text-decoration: none;
+  white-space: nowrap;
   border-radius: 8px;
 }
 
