@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConQioFlags</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#082a4d">
+<link rel="canonical" href="https://conqioflags.com/es/support.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+<script>
+(function () {
+  var langs = ["es"], fallback = "es", page = "support.html";
+  var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || fallback];
+  var pick = null;
+  for (var i = 0; i < prefs.length && !pick; i++) {
+    var l = String(prefs[i]).toLowerCase();
+    if (langs.indexOf(l) > -1) { pick = l; break; }
+    var base = l.split("-")[0];
+    for (var j = 0; j < langs.length; j++) {
+      if (langs[j].split("-")[0] === base) { pick = langs[j]; break; }
+    }
+  }
+  location.replace((pick || fallback) + "/" + page + location.hash);
+})();
+</script>
+</head>
+<body>
+<main id="contenido">
+  <div class="wrap">
+    <noscript>
+      <div class="doc">
+        <p class="marca">Con<span class="q">Q</span>ioFlags</p>
+        <p>Elige tu idioma:</p>
+        <ul class="lista-idiomas"><li><a href="es/support.html" lang="es">Español</a></li></ul>
+      </div>
+    </noscript>
+  </div>
+</main>
+</body>
+</html>
