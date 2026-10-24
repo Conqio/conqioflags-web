@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>This page doesn’t exist · ConQioFlags</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#082a4d">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/icono-pestana.png" type="image/png" sizes="64x64">
+<link rel="icon" href="/assets/icono-pestana.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icono-favoritos.png">
+<link rel="preload" href="/assets/fonts/outfit.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="cabecera">
+  <div class="wrap cabecera-in">
+    <a class="marca" id="nf-marca" href="/" aria-label="ConQioFlags, home">Con<span class="q">Q</span>ioFlags</a>
+  </div>
+</header>
+<main id="contenido">
+  <div class="wrap">
+    <article class="doc">
+      <h1 id="nf-titulo">This page doesn’t exist</h1>
+      <p id="nf-texto">The link may be mistyped, or the page may have moved.</p>
+      <p><a id="nf-inicio" href="/">Go to the home page</a></p>
+    </article>
+  </div>
+</main>
+<script>
+(function () {
+  var t = {"es": {"lang": "es", "home_label": "ConQioFlags, inicio", "title": "Esta página no existe", "p": "Puede que el enlace esté mal escrito o que la página haya cambiado de sitio.", "home": "Ir al inicio"}, "id": {"lang": "id", "home_label": "ConQioFlags, beranda", "title": "Halaman ini tidak ada", "p": "Mungkin tautannya salah ketik, atau halamannya sudah pindah.", "home": "Ke beranda"}, "de": {"lang": "de", "home_label": "ConQioFlags, Startseite", "title": "Diese Seite gibt es nicht", "p": "Vielleicht ist der Link falsch geschrieben oder die Seite ist umgezogen.", "home": "Zur Startseite"}, "en": {"lang": "en", "home_label": "ConQioFlags, home", "title": "This page doesn’t exist", "p": "The link may be mistyped, or the page may have moved.", "home": "Go to the home page"}, "fr": {"lang": "fr", "home_label": "ConQioFlags, accueil", "title": "Cette page n’existe pas", "p": "Le lien est peut-être mal écrit, ou la page a changé d’adresse.", "home": "Aller à l’accueil"}, "it": {"lang": "it", "home_label": "ConQioFlags, home", "title": "Questa pagina non esiste", "p": "Forse il link è scritto male, oppure la pagina è stata spostata.", "home": "Vai alla home"}, "nl": {"lang": "nl", "home_label": "ConQioFlags, home", "title": "Deze pagina bestaat niet", "p": "Misschien is de link verkeerd getypt, of is de pagina verhuisd.", "home": "Naar de homepage"}, "pl": {"lang": "pl", "home_label": "ConQioFlags, strona główna", "title": "Ta strona nie istnieje", "p": "Możliwe, że link zawiera błąd albo strona zmieniła adres.", "home": "Przejdź do strony głównej"}, "pt-br": {"lang": "pt-BR", "home_label": "ConQioFlags, início", "title": "Esta página não existe", "p": "Talvez o link esteja errado ou a página tenha mudado de endereço.", "home": "Ir para o início"}, "pt-pt": {"lang": "pt-PT", "home_label": "ConQioFlags, início", "title": "Esta página não existe", "p": "Talvez a ligação esteja mal escrita ou a página tenha mudado de sítio.", "home": "Ir para o início"}, "vi": {"lang": "vi", "home_label": "ConQioFlags, trang chủ", "title": "Trang này không tồn tại", "p": "Có thể đường liên kết bị gõ sai, hoặc trang đã chuyển sang địa chỉ khác.", "home": "Về trang chủ"}, "tr": {"lang": "tr", "home_label": "ConQioFlags, ana sayfa", "title": "Bu sayfa mevcut değil", "p": "Bağlantı yanlış yazılmış ya da sayfanın adresi değişmiş olabilir.", "home": "Ana sayfaya git"}, "ja": {"lang": "ja", "home_label": "ConQioFlags ホーム", "title": "このページは存在しません", "p": "リンクが間違っているか、ページが移動した可能性があります。", "home": "ホームへ"}, "ko": {"lang": "ko", "home_label": "ConQioFlags 홈", "title": "페이지를 찾을 수 없습니다", "p": "링크가 잘못 입력되었거나 페이지 주소가 바뀌었을 수 있습니다.", "home": "홈으로 가기"}};
+  function elegir() {
+    var langs = ["es", "id", "de", "en", "fr", "it", "nl", "pl", "pt-br", "pt-pt", "vi", "tr", "ja", "ko"], cercanos = {"ca": "es", "gl": "es", "eu": "es"};
+    var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+    var i, j, l, base;
+    for (i = 0; i < prefs.length; i++) {
+      l = String(prefs[i]).toLowerCase();
+      base = l.split("-")[0];
+      if (langs.indexOf(l) > -1) return l;
+      if (base === "pt" && langs.indexOf("pt-br") > -1 && langs.indexOf("pt-pt") > -1)
+        return /^pt-br(-|$)/.test(l) ? "pt-br" : "pt-pt";
+      for (j = 0; j < langs.length; j++) if (langs[j].split("-")[0] === base) return langs[j];
+    }
+    for (i = 0; i < prefs.length; i++) {
+      base = String(prefs[i]).toLowerCase().split("-")[0];
+      if (cercanos[base] && langs.indexOf(cercanos[base]) > -1) return cercanos[base];
+    }
+    return "en";
+  }
+  var carpeta = location.pathname.split("/")[1];
+  var c = t.hasOwnProperty(carpeta) ? carpeta : elegir();
+  var x = t[c];
+  document.documentElement.lang = x.lang;
+  document.title = x.title + " · ConQioFlags";
+  document.getElementById("nf-titulo").textContent = x.title;
+  document.getElementById("nf-texto").textContent = x.p;
+  var a = document.getElementById("nf-inicio");
+  a.textContent = x.home;
+  a.href = "/" + c + "/";
+  var m = document.getElementById("nf-marca");
+  m.href = "/" + c + "/";
+  m.setAttribute("aria-label", x.home_label);
+})();
+</script>
+</body>
+</html>
